@@ -5,18 +5,18 @@ import { getFilms } from './utils/getFilms'
 
 function App() {
 
-  const [films, setFilms] = useState([])
+  const [film, setFilm] = useState(null)
   const baseUrl = "https://image.tmdb.org/t/p/w500"
 
   async function recommend() {
     try {
-      setFilms(await getFilms())
+      setFilm(await getFilms())
     } catch (err) {
       console.error(err)
     }
   }
 
-  console.log(films)
+  console.log(film)
 
   return (
     <div className='container'>
@@ -24,12 +24,18 @@ function App() {
         <h2>¿Que vemos hoy?</h2>
         <button onClick={() => recommend()}>Recomendar</button>
       </div>
+      {film !== null ? (
+        <>
       <div>
         <div className='film'>
-          {films.title}
-          <img src={baseUrl+films.poster_path} alt={films.title} width='400'/>
+          {film.title}
+          <img src={baseUrl+film.poster_path} alt={film.title} width='400'/>
         </div>
       </div>
+        </>
+      ) : (
+        <>No hay ninguna película recomendada</>
+      )}
     </div>
   )
 }
