@@ -38,7 +38,7 @@ function App() {
     }
   }
 
-  console.log(genresNames)
+  console.log(film)
 
   return (
     <div className='container'>
@@ -54,6 +54,7 @@ function App() {
                 <h2 className='title'>{film.title}</h2>
                 <h2 className='vote' style={{color: getVoteByColor(film.vote_average)}}>{film.vote_average.toFixed(1)}</h2>
               </div>
+              {film.release_date.slice(0, 4)}
               <div className='genre-container'>
                 <GenreComponent key={genres.id} genresNames={genresNames} />
               </div>
