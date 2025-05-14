@@ -1,15 +1,21 @@
 import { useState } from 'react'
 import './App.css'
 import { getFilms } from './utils/getFilms'
+import { genres } from './utils/genres'
 
 function App() {
 
   const [film, setFilm] = useState(null)
+  const [genres, setGenres] = useState([])
+
   const baseUrl = "https://image.tmdb.org/t/p/w500"
 
   async function recommend() {
     try {
-      setFilm(await getFilms())
+
+      const filmData = await getFilms()
+      setFilm(filmData)
+      setGenres(filmData.genre_ids || [])
 
     } catch (err) {
       console.error(err)
@@ -28,7 +34,7 @@ function App() {
     }
   }
 
-  console.log(film)
+  console.log(genres)
 
   return (
     <div className='container'>
