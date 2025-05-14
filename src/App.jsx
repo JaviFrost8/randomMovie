@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import { peliculas } from './peliculas'
 import { getFilms } from './utils/getFilms'
 
 function App() {
@@ -11,8 +10,21 @@ function App() {
   async function recommend() {
     try {
       setFilm(await getFilms())
+
     } catch (err) {
       console.error(err)
+    }
+  }
+
+  function getVoteByColor(vote){
+    if(vote >= 8){
+      return 'green'
+
+    }else if(vote >= 5){
+      return 'orange'
+
+    }else{
+      return 'red'
     }
   }
 
@@ -20,18 +32,27 @@ function App() {
 
   return (
     <div className='container'>
-      <div>
+      <div className='btn-container'>
         <h2>¿Que vemos hoy?</h2>
         <button onClick={() => recommend()}>Recomendar</button>
       </div>
       {film !== null ? (
         <>
-      <div>
-        <div className='film'>
-          {film.title}
-          <img src={baseUrl+film.poster_path} alt={film.title} width='400'/>
-        </div>
-      </div>
+          <div>
+            <div className='film'>
+              <div className='title-container'>
+                <p className='title'>{film.title}</p>
+                <p className='vote' style={{color: getVoteByColor(film.vote_average)}}>{film.vote_average.toFixed(1)}</p>
+              </div>
+              <div className='poster-container'>
+                <img src={baseUrl + film.poster_path} alt={film.title} width='400' />
+                <div className='description'>
+                  <p className='title-overview'>{film.title}</p>
+                  <p>{film.overview}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       ) : (
         <>No hay ninguna película recomendada</>
