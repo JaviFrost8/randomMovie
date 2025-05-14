@@ -93,3 +93,25 @@ body {
   font-weight: bold;
   margin: 7px 0;
 }
+
+.genres{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genre-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.ul-genre{
+  display: flex;
+  list-style: none;
+}
+
+.li-genre{
+  margin: 0 5px;
+}

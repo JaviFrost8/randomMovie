@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import { getFilms } from './utils/getFilms'
-import { genres } from './utils/genres'
+import { genres, genresNamesFind } from './utils/genres'
+import { GenreComponent } from './components/GenreComponent'
 
 function App() {
 
   const [film, setFilm] = useState(null)
-  const [genres, setGenres] = useState([])
+  const [genresId, setGenresId] = useState([])
+  const [genresNames, setGenresNames] = useState([])
 
   const baseUrl = "https://image.tmdb.org/t/p/w500"
 
@@ -15,7 +17,9 @@ function App() {
 
       const filmData = await getFilms()
       setFilm(filmData)
-      setGenres(filmData.genre_ids || [])
+      setGenresId(filmData.genre_ids)
+      const newNamesGenres = genresNamesFind(filmData.genre_ids);
+      setGenresNames(newNamesGenres)
 
     } catch (err) {
       console.error(err)
@@ -34,7 +38,7 @@ function App() {
     }
   }
 
-  console.log(genres)
+  console.log(genresNames)
 
   return (
     <div className='container'>
@@ -47,8 +51,11 @@ function App() {
           <div>
             <div className='film'>
               <div className='title-container'>
-                <p className='title'>{film.title}</p>
-                <p className='vote' style={{color: getVoteByColor(film.vote_average)}}>{film.vote_average.toFixed(1)}</p>
+                <h2 className='title'>{film.title}</h2>
+                <h2 className='vote' style={{color: getVoteByColor(film.vote_average)}}>{film.vote_average.toFixed(1)}</h2>
+              </div>
+              <div className='genre-container'>
+                <GenreComponent key={genres.id} genresNames={genresNames} />
               </div>
               <div className='poster-container'>
                 <img src={baseUrl + film.poster_path} alt={film.title} width='400' />

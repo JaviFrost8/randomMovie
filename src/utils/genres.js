@@ -76,3 +76,10 @@ export const genres = [
       "name": "Western"
     }
   ]
+
+  export function genresNamesFind(genreIds){
+    return genreIds.map(id => {
+      const genre = genres.find(g => g.id === id);
+      return genre ? genre.name : null
+    })
+  }
