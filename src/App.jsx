@@ -4,18 +4,26 @@ import { getFilms } from './utils/getFilms'
 import { genres, genresNamesFind } from './utils/genres'
 import { GenreComponent } from './components/GenreComponent'
 import { getColorByVote } from './utils/getColorByVote'
+import { OptionsComponents } from './components/OptionsComponents'
 
 function App() {
 
   const [film, setFilm] = useState(null)
   const [genresNames, setGenresNames] = useState([])
+  const [selectedYear, setSelectedYear] = useState('')
+  const [selectedGenre, setSelectedGenre] = useState('')
+
+  function selectedOptions(year, genre){
+    setSelectedYear(year)
+    setSelectedGenre(genre)
+  }
 
   const baseUrl = "https://image.tmdb.org/t/p/w500"
 
   async function recommend() {
     try {
 
-      const filmData = await getFilms()
+      const filmData = await getFilms(selectedYear, selectedGenre)
       setFilm(filmData)
       const newNamesGenres = genresNamesFind(filmData.genre_ids);
       setGenresNames(newNamesGenres)
@@ -27,6 +35,7 @@ function App() {
 
   return (
     <div className='container'>
+      <OptionsComponents onAction={selectedOptions} />
       <div className='btn-container'>
         <h2>¿Que vemos hoy?</h2>
         <button onClick={() => recommend()}>Recomendar</button>
