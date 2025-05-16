@@ -20,7 +20,7 @@ export const OptionsComponents = ({ onAction }) => {
         name='year' 
         id='year'
       >
-        <option value='' disabled hidden>-- Elige un año --</option>
+        <option value=''>-- Elige un año --</option>
         <option value='1950'>50's o menos</option>
         <option value='1960'>60's</option>
         <option value='1970'>70's</option>
@@ -39,7 +39,7 @@ export const OptionsComponents = ({ onAction }) => {
         name='genre' 
         id='genre'
       >
-        <option value='' disabled hidden>-- Selecciona un género --</option>
+        <option value=''>-- Selecciona un género --</option>
         <option value='28'>Acción</option>
         <option value='12'>Aventura</option>
         <option value='16'>Animación</option>
