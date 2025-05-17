@@ -2,7 +2,7 @@ export async function getFilms(year = '', genre = '') {
 
   const API_KEY = 'a214c1ad957357a97596f344f78492a0'
   const MAX_PAGES = 500;
-  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=es-ES`
+  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=es-ES&with_overview=true&include_adult=false`
 
   if (genre) url += `&with_genres=${genre}`
 
